@@ -1,6 +1,5 @@
 package com.alebian.javaexperiments.kafka.configuration;
 
-import com.alebian.javaexperiments.kafka.configuration.ConsumerConfiguration;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +33,7 @@ public class CustomDlqRecoverer implements ConsumerRecordRecoverer {
         var isRetryable = ConsumerConfiguration.EXCEPTION_SHOULD_RETRY.getOrDefault(exceptionClass, true);
         log.debug("Exception {} retryable: {}", exceptionClass, isRetryable);
 
-        if (isRetryable) {
+        if (Boolean.TRUE.equals(isRetryable)) {
             throw exception.getCause();
         }
 
